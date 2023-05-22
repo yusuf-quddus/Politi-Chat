@@ -74,6 +74,6 @@ video {
     border-radius: 5px;
 }
 
-.unmute {
+.unmute, .stop {
     color: #CC3833;
 }
