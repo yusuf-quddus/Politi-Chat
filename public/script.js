@@ -91,3 +91,19 @@ const playStop = () => {
         myVideoStream.getVideoTracks()[0].enabled = true;
     }
 }
+
+const setStopVideo = () => {
+    const html = `
+    <i class="fas fa-video"></i>
+    <span>Stop Video</span>
+    `
+    document.querySelector('.main_video_button').innerHTML = html;
+}
+
+const setPlayVideo = () => {
+    const html = `
+    <i class="stop fas fa-slash"></i>
+    <span>Play Video</span>
+    `
+    document.querySelector('.main_video_button').innerHTML = html;
+}
