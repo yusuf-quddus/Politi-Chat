@@ -23,6 +23,7 @@ app.get('/searching', (req, res) => {
     const uid = req.query.ID;
     const opin = req.query.opinion;
     const topic = req.query.topic;
+    console.log(`${uid} searching ${topic} with opinion of ${opin}`);
     res.render(path.join(__dirname, 'views/searching.ejs'), { uid, opin, topic });
 });
 
