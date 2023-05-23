@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<header>
+    <h1>Welcome to PolitiChat!</h1>
+    <img src="../sampleLogo.png" alt="sample logo">
+</header>
+<h4>About:</h4>
+<p>Choose from topics below... etc...</p>
+
+<ul>
+    <% topics.forEach(i => { %>
+    <li><a href="./topic/<%= i %>"><%= i %></a></li>
+    <% }) %>
+</ul>
+
+</body>
+</html>
