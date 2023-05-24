@@ -27,6 +27,21 @@ app.get('/searching', (req, res) => {
     res.render(path.join(__dirname, 'views/searching.ejs'), { uid, opin, topic });
 });
 
+app.get('/client', (req, res) => {
+    const uid = req.query.ID;
+    const opin = req.query.opinion;
+    const topic = req.query.topic;
+    res.render(path.join(__dirname, 'views/client.ejs'), { uid, opin, topic });
+});
+
+app.get('/test1', (req, res) => {
+    res.render(path.join(__dirname, 'views/client.ejs'));
+});
+
+app.get('/test2', (req, res) => {
+    res.render(path.join(__dirname, 'views/client2.ejs'));
+});
+
 app.get('*', (req, res) => {
     res.status(404).sendFile(path.join(__dirname, '/public/404.html'));
 });
