@@ -8,13 +8,7 @@
     </header>
 </div>
 <div>
-    <form action="../searching" method="get" class="searchforopp">
-        <div>
-            <label for="ID">ID:</label>
-            <input type="text" disabled="true" value="<%= uid %>" size="36">
-            <input type="hidden" name="ID" id="ID" value="<%= uid %>" required="true">
-            <input type="hidden" name="topic" id="topic" value="<%= topic %>" required="true">
-        </div>
+    <form action="../topic/<%= topic %>/redirect" method="get" class="searchforopp">
         <div>
             <label for="ID">Rate your support of/for <%= topic%>:</label>
             <input type="range" name="opinion" id="opinion" min="0" max="10" step="1" value="5" required="true">
