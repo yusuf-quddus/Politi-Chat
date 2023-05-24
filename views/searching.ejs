@@ -3,6 +3,13 @@
 <body>
     <h1>Searching for Opponent</h1>
     <img src="../loading.gif" alt="loading">
-    <p>Just a dynamic demonstration (to be removed): <%= uid %> searching with opinion <%= opin %> about <%= topic %></p>
+
+    <button type="button" id="return">Cancel Search</button>
+
+    <script>
+        document.getElementById('return').addEventListener('click', () => {
+            window.location.href = '/canceled?id=<%= uid %>&topic=<%= topic %>';
+        });
+    </script>
 </body>
 </html>
