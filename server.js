@@ -6,6 +6,11 @@ const io = require('socket.io')(server)
 const { v4: uuid } = require('uuid');
 const topics = ['Lobbying', 'Abortion', 'Gun Control'];
 
+const Queue = require('./public/queue.js');
+const lobbyingQueue = new Queue();
+const abortionQueue = new Queue();
+const gunControlQueue = new Queue();
+
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.static('assets'));
@@ -20,8 +25,14 @@ app.get('/topic/:t', (req, res) => {
 });
 
 app.get('/topic/:t/redirect', (req, res) => {
+    var roomId = lobbyingQueue.pop();
+    if (roomId == null) {
+        roomId = uuid();
+        lobbyingQueue.push(roomId)
+    }
     const topic = req.params.t;
-    res.redirect(`/topic/${topic}/${uuid()}`);
+    const opinion = req.query.opinion;
+    res.redirect(`/topic/${topic}/${roomId}`);
 });
 
 app.get('/topic/:t/:room', (req, res) => {
