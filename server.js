@@ -7,6 +7,7 @@ const { v4: uuid } = require('uuid');
 const topics = ['Lobbying', 'Abortion', 'Gun Control'];
 
 const Queue = require('./public/queue.js');
+const { get } = require('http');
 const lobbyingQueue = new Queue();
 const abortionQueue = new Queue();
 const gunControlQueue = new Queue();
@@ -25,13 +26,14 @@ app.get('/topic/:t', (req, res) => {
 });
 
 app.get('/topic/:t/redirect', (req, res) => {
-    var roomId = lobbyingQueue.pop();
-    if (roomId == null) {
-        roomId = uuid();
-        lobbyingQueue.push(roomId)
-    }
     const topic = req.params.t;
     const opinion = req.query.opinion;
+    var q = getQueue(topic);
+    var roomId = q.pop();
+    if (roomId == null) {
+        roomId = uuid();
+        q.push(roomId)
+    }
     res.redirect(`/topic/${topic}/${roomId}`);
 });
 
@@ -43,6 +45,7 @@ app.get('*', (req, res) => {
     res.status(404).sendFile(path.join(__dirname, '/public/404.html'));
 });
 
+// Contains protocol for handling connections
 io.on('connection', socket => {
     socket.on('join-room', (roomId, userId) => {
         socket.join(roomId);
@@ -53,3 +56,17 @@ io.on('connection', socket => {
 server.listen(3000, () => {
     console.log("listening on 3000");
 });
+
+function getQueue(topic) {
+    const ind = topics.indexOf(topic);
+    switch(ind) {
+        case -1:
+            return null;
+        case 0:
+            return lobbyingQueue;
+        case 1:
+            return abortionQueue;
+        case 2:
+            return gunControlQueue;
+    }
+}
