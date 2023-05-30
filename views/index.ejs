@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Index Page</title>
+        <link rel="stylesheet" type="text/css" href="../indStyle.css">
+      </head>
 <body>
 
 <header>
@@ -11,12 +18,13 @@
 <div>
     <h4>About:</h4>
     <p>Choose from topics below... etc...</p>
-
-    <ul>
-        <% topics.forEach(i => { %>
-        <li><a href="./topic/<%= i %>"><%= i %></a></li>
-        <% }) %>
-    </ul>
+    <div>
+        <ul>
+            <% topics.forEach(i => { %>
+            <li><a href="./topic/<%= i %>"><%= i %></a></li>
+            <% }) %>
+        </ul>
+    </div>
 </div>
 
 </body>

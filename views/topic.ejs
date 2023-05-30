@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Topic Page</title>
+    </head>
 <body>
 
 <div>
@@ -26,18 +32,18 @@
 <script>
     // Used to redirect back to index
     function backToIndex() {
-        window.history.back();
+        window.history.back()
     }
 </script>
 
 <script>
     // Updates the opinion slider and sets and initial value
-    const input = document.getElementById("opinion");
-    const currValElement = document.getElementById("currOpinion");
-    currValElement.textContent = input.value;
+    const input = document.getElementById("opinion")
+    const currValElement = document.getElementById("currOpinion")
+    currValElement.textContent = input.value
     input.addEventListener('input', function() {
-        currValElement.textContent = input.value;
-    });
+        currValElement.textContent = input.value
+    })
 </script>
 
 </body>

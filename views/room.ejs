@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Room Page</title>
   <style>
     #video-grid {
       display: grid;
@@ -20,11 +20,17 @@
   </style>
 </head>
 <body>
-
-    <div id="video-grid"></div>
-    <div>
-        <button id="tog-audio" onclick="flipAudio">Toggle Mic</button>
-        <button id="tog-video" onclick="flipVideo">Toggle Video</button>
+    <div id="video-call">
+        <div id="video-grid"></div>
+        <button id="tog-audio" onclick="flipAudio()">Toggle Mic</button>
+        <button id="tog-video" onclick="flipVideo()">Toggle Video</button>
+        <button id="disconnect" onclick="goToInd()">Disconnect</button>
+    </div>
+    <div id="searching">
+        <div id="video-grid"></div>
+        <h1>Searching for Opponent</h1>
+        <img src="../loading.gif" alt="loading">
+        <button type="button" id="return">Cancel Search</button>
     </div>
 
     <script>
@@ -34,15 +40,15 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
     // Require socket, setup self instance and peer list
-    const socket = io('/');
+    const socket = io('/')
     const myPeer = new Peer(undefined, {
         host: '/',
         port: '3001'
-    });
-    const peers = {};
+    })
+    const peers = {}
     // Store/create video grid and personal video
-    const videoGrid = document.getElementById('video-grid');
-    const myVideo = document.createElement('video');
+    const videoGrid = document.getElementById('video-grid')
+    const myVideo = document.createElement('video')
     myVideo.muted = true;
       
     navigator.mediaDevices.getUserMedia({
@@ -53,54 +59,60 @@
         // Handles a call event from another peer
         myPeer.on('call', call => {
             call.answer(stream);
-            const video = document.createElement('video');
+            const video = document.createElement('video')
             call.on('stream', userVideoStream => {
-                addVideoStream(video, userVideoStream);
-            });
-        });
+                addVideoStream(video, userVideoStream)
+            })
+        })
         // Handles a new peer connecting to the page
         socket.on('user-connected', userId => {
             connectToNewUser(userId, stream);
-        });
-    });
+        })
+    })
     // Handles a peer disconnecting to the page
     socket.on('user-disconnected', userId => {
         if (peers[userId]) peers[userId].close();
-    });
+    })
     // Joins a room on page open
     myPeer.on('open', id => {
-        socket.emit('join-room', ROOM_ID, id);
-    });
+        socket.emit('join-room', ROOM_ID, id)
+    })
   
     // Used to connect new user to current self
     function connectToNewUser(userId, stream) {
-        const call = myPeer.call(userId, stream);
-        const video = document.createElement('video');
+        const call = myPeer.call(userId, stream)
+        const video = document.createElement('video')
         call.on('stream', userVideoStream => {
-            addVideoStream(video, userVideoStream);
+            addVideoStream(video, userVideoStream)
         });
         call.on('close', () => {
-            video.remove();
-        });
-        peers[userId] = call;
+            video.remove()
+        })
+        peers[userId] = call
     }
   
     // Adds a video to the video grid
     function addVideoStream(video, stream) {
-        video.srcObject = stream;
+        video.srcObject = stream
         video.addEventListener('loadedmetadata', () => {
-            video.play();
+            video.play()
         })
-        videoGrid.append(video);
+        videoGrid.append(video)
     }
     function flipAudio() {
         myVideo.srcObject.getAudioTracks().forEach((track) => {
-            track.enabled = !track.enabled;
-        });
-    }function flipVideo() {
+            track.enabled = !track.enabled
+        })
+    }
+    function flipVideo() {
         myVideo.srcObject.getVideoTracks().forEach((track) => {
-            track.enabled = !track.enabled;
-        });
+            track.enabled = !track.enabled
+        })
+    }
+
+    function goToInd() {
+        // Needs to emit a socket disconnected event
+        window.location.href = '/index'
     }
     </script>
 </body>
