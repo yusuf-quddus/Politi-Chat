@@ -1,0 +1,75 @@
+/* Styles for the body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Styles for the header section */
+  header {
+    background-color: #c7c7c7;
+    padding: 30px;
+  }
+  
+  header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for the main content section */
+  div {
+    margin: 20px;
+  }
+  
+  form.searchforopp {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  form.searchforopp label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  form.searchforopp input[type="range"] {
+    width: 20%;
+    padding: 10px;
+    }
+  
+  form.searchforopp p {
+    margin-top: 10px;
+  }
+
+  form.searchforopp input[type="submit"] {
+    background-color: #c7c7c7;
+    padding: 5px 10px;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  form.searchforopp input[type="submit"]:hover {
+    background-color: #999;
+    color: #fff;
+  }
+  
+  div button {
+    background-color: #c7c7c7;
+    padding: 5px 10px;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  div button:hover {
+    background-color: #999;
+    color: #fff;
+  }
+  
+  #body {
+    margin-left: 70px;
+  }
