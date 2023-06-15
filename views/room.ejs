@@ -5,7 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Room Page</title>
+  <link rel="icon" href="../sampleLogo.png">
   <style>
+    /* Styles for the body */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Styles for the header section */
+    header {
+        border: 5px solid #0C4D91;
+        background-color: #c7c7c7;
+        padding: 30px;
+        text-align: center;
+    }
+
+    header h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    /* Styles for the main content section */
+    div {
+        margin: 20px;
+    }
+
+    #video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 300px);
+        grid-auto-rows: 300px;
+    }
+
+    #tog-audio {
+        background-color: #c7c7c7;
+        padding: 5px 10px;
+        border: none;
+        color: #333;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    #tog-video {
+        background-color: #c7c7c7;
+        padding: 5px 10px;
+        border: none;
+        color: #333;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    #disconnect {
+        background-color: #c7c7c7;
+        padding: 5px 10px;
+        border: none;
+        color: #333;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
     #video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, 300px);
@@ -17,22 +76,36 @@
       height: 100%;
       object-fit: cover;
     }
+    
+    .vids {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        padding: 5px;
+    }
+
+    .center {
+        border: 5px solid #0C4D91;
+        margin: auto;
+        width: 16.5%;
+        padding: 5px;
+    }
   </style>
 </head>
 <body>
-    <div id="video-call">
-        <div id="video-grid"></div>
+    <header>
+        <div>
+            <h1>Room <%= roomId %></h1>
+        </div>
+    </header>
+    <div id="video-grid" class="vids"></div>
+    <div id="video-controls" class="center">
         <button id="tog-audio" onclick="flipAudio()">Toggle Mic</button>
         <button id="tog-video" onclick="flipVideo()">Toggle Video</button>
         <button id="disconnect" onclick="goToInd()">Disconnect</button>
     </div>
-    <div id="searching">
-        <div id="video-grid"></div>
-        <h1>Searching for Opponent</h1>
-        <img src="../loading.gif" alt="loading">
-        <button type="button" id="return">Cancel Search</button>
-    </div>
 
+    
     <script>
         const ROOM_ID = "<%= roomId %>";
     </script>
@@ -67,6 +140,7 @@
         // Handles a new peer connecting to the page
         socket.on('user-connected', userId => {
             connectToNewUser(userId, stream);
+            console.log(peers)
         })
     })
     // Handles a peer disconnecting to the page

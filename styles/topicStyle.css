@@ -7,6 +7,7 @@ body {
   
   /* Styles for the header section */
   header {
+    border: 5px solid #0C4D91;
     background-color: #c7c7c7;
     padding: 30px;
   }
