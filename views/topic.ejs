@@ -5,8 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Topic Page</title>
-        <link rel="stylesheet" type="text/css" href="../topicStyle.css">
-        <link rel="icon" href="../sampleLogo.png">
     </head>
 <body>
     <header>
@@ -16,9 +14,10 @@
     </header>
 <div id="body">
     <form action="../topic/<%= topic %>/redirect" method="get" class="searchforopp">
-        <label for="ID">Rate your support of/for <%= topic%>:</label>
-        <input type="range" name="opinion" id="opinion" min="0" max="10" step="1" value="5" required="true">
-        <p>Current Value: <span id="currOpinion"></span></p>
+        <label>Rate your support of/for <%= topic%>:
+            <input type="range" name="opinion" id="opinion" min="0" max="10" step="1" value="5" required="true">
+            <p>Current Value: <span id="currOpinion"></span></p>
+        </label>
         <input type="submit" value="Search for opponent">
     </form>
         <button onclick="backToIndex()">Back</button>
