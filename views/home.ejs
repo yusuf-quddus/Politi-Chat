@@ -17,13 +17,23 @@
         </form>
       </nav>
     <% for(let t of topics) { %>
-        <div class="card", onclick="location.href='<%=`/${t.id}` %>'">
+      <% if (numClients < 3) { %>
+        <div class="card", onclick="location.href='<%=`/${t.room1}` %>'">
             <img src= "<%= t.image %>"" alt="Avatar" style="width:400px">
             <div class="container">
               <h4><b><%= t.topic %></b></h4>
               <p> <%= t.description %> </p>
             </div>
           </div>
+      <% } else {%>
+        <div class="card", onclick="location.href='<%=`/${t.room2}` %>'">
+          <img src= "<%= t.image %>"" alt="Avatar" style="width:400px">
+          <div class="container">
+            <h4><b><%= t.topic %></b></h4>
+            <p> <%= t.description %> </p>
+          </div>
+        </div>
+      <% } %>
     <% } %>
 </body>
 </html>
