@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Topic Page</title>
+    </head>
+<body>
+    <header>
+        <div>
+            <h1>Selected Topic: <%= topic %></h1>
+        </div>
+    </header>
+<div id="body">
+    <form action="../topic/<%= topic %>/redirect" method="get" class="searchforopp">
+        <label>Rate your support of/for <%= topic%>:
+            <input type="range" name="opinion" id="opinion" min="0" max="10" step="1" value="5" required="true">
+            <p>Current Value: <span id="currOpinion"></span></p>
+        </label>
+        <input type="submit" value="Search for opponent">
+    </form>
+        <button onclick="backToIndex()">Back</button>
+</div>
+
+<script>
+    // Used to redirect back to index
+    function backToIndex() {
+        window.history.back()
+    }
+</script>
+
+<script>
+    // Updates the opinion slider and sets and initial value
+    const input = document.getElementById("opinion")
+    const currValElement = document.getElementById("currOpinion")
+    currValElement.textContent = input.value
+    input.addEventListener('input', function() {
+        currValElement.textContent = input.value
+    })
+</script>
+
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 const videoGrid = document.getElementById('video-grid');
 const myVideo = document.createElement('video');
 const socket = io('/')
@@ -7,7 +6,7 @@ myVideo.muted = true;
 var peer = new Peer(undefined, {
     path: '/peerjs',
     host: '/',
-    port: '3030'
+    port: '3000'
 });
 
 let myVideoStream;
@@ -111,3 +110,4 @@ const setPlayVideo = () => {
 const exit = () => {
     location.href = "/";
 }
+
