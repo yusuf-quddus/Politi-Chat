@@ -64,7 +64,7 @@ const qList = [
     }
 ]
 
-app.get('/index', (req, res) => {
+app.get('/', (req, res) => {
     res.render(path.join(__dirname, 'views/index.ejs'), { topics })
 })
 
