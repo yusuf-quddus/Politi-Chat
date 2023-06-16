@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path')
-const server = require('http').Server(app);
+const server = require('http').createServer(app);
 const io = require('socket.io')(server)
 const { v4: uuidv4, v4  } = require('uuid');
 const { ExpressPeerServer } = require('peer');
@@ -63,7 +63,7 @@ const qList = [
     }
 ]
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
     res.render(path.join(__dirname, 'views/index.ejs'), { topics })
 })
 
@@ -75,12 +75,13 @@ app.get('/topic/:t', (req, res) => {
 app.get('/topic/:t/redirect', (req, res) => {
     const topic = req.params.t
     const opinion = req.query.opinion
-    var q = getQueue(topic, opinion)
-    var roomId = q.pop()
+    var clientQueue = getMainQueue(topic, opinion)
+    var otherQueue = getOtherQueue(topic, opinion)
+    var roomId = otherQueue.pop()
     if (roomId == null) {
         roomId = v4()
-        q.push(roomId)
-    }
+        clientQueue.push(roomId)
+    } 
     res.redirect(`/topic/${topic}/${roomId}`)
 })
 
@@ -112,9 +113,8 @@ app.get('*', (req, res) => {
 })
 
 // Contains protocol for handling connections
-io.on('connection', socket => {
+io.on('connection', (socket) => {
     socket.on('join-room', (roomId, userId) => {
-
         socket.join(roomId);
         socket.to(roomId).emit('user-connected', userId);
     })  
@@ -124,7 +124,7 @@ server.listen(3000, () => {
     console.log("listening on 3000")
 })
 
-function getQueue(topic, opinion) {
+function getMainQueue(topic, opinion) {
     const ind = qList.findIndex(item => item.topic === topic)
     if (ind == -1) {
         return null
@@ -132,6 +132,16 @@ function getQueue(topic, opinion) {
         return qList.at(ind).highQueue
     } else {
         return qList.at(ind).lowQueue
+    }
+}
+function getOtherQueue(topic, opinion) {
+    const ind = qList.findIndex(item => item.topic === topic)
+    if (ind == -1) {
+        return null
+    } else if (opinion >= 5) {
+        return qList.at(ind).lowQueue
+    } else {
+        return qList.at(ind).highQueue
     }
 }
 
