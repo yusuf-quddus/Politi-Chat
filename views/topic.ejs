@@ -5,22 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Topic Page</title>
+        <link rel="stylesheet" href = "/retFile/style">
     </head>
 <body>
-    <header>
+    <header class = "topic-header">
         <div>
             <h1>Selected Topic: <%= topic %></h1>
         </div>
     </header>
-<div id="body">
+<div class="opinion-body">
     <form action="../topic/<%= topic %>/redirect" method="get" class="searchforopp">
         <label>Rate your support of/for <%= topic%>:
             <input type="range" name="opinion" id="opinion" min="0" max="10" step="1" value="5" required="true">
             <p>Current Value: <span id="currOpinion"></span></p>
         </label>
-        <input type="submit" value="Search for opponent">
+        <input id="submit" class = "queue-button submit" type="submit" value="Search for opponent &raquo">
     </form>
-        <button onclick="backToIndex()">Back</button>
+        <br>
+        <button id="back" class = "queue-button back" onclick="backToIndex()"> &laquo Back </button>
 </div>
 
 <script>
